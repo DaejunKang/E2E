@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "split": "navtest",
+    "agents": "human,cv,ltf",
+    "pick": "random",
+    "seed": 0,
+    "ltf_ckpt": "models/ltf/ckpt/ltf/ltf_seed_0.ckpt"
+  },
+  "scenes": [
+    {
+      "token": "cf1ad202aadb5ee6",
+      "image": "cf1ad202aadb5ee6.png",
+      "note": ""
+    },
+    {
+      "token": "14128c4b87b15777",
+      "image": "14128c4b87b15777.png",
+      "note": ""
+    },
+    {
+      "token": "c4b1d4fabd315035",
+      "image": "c4b1d4fabd315035.png",
+      "note": ""
+    },
+    {
+      "token": "c36c131b21f65a13",
+      "image": "c36c131b21f65a13.png",
+      "note": ""
+    },
+    {
+      "token": "1b5606e475d554f7",
+      "image": "1b5606e475d554f7.png",
+      "note": ""
+    },
+    {
+      "token": "96bc4f4e46f752f4",
+      "image": "96bc4f4e46f752f4.png",
+      "note": ""
+    }
+  ]
+}

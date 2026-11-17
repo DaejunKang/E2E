@@ -1,0 +1,22 @@
+# 환경·데이터·실험 산출물 (용량 큼, 재생성 가능)
+/envs/
+/.venv/
+/dataset
+/exp_v1
+/exp_v2
+/exp_drivor
+
+# upstream 저장소 (각자 .git 보유). 우리 수정분은 models/drivor/v2_port/ 에 patch 로 기록
+/navsim_v1/
+/navsim_v2/
+/drivor/
+
+# checkpoint 본체는 제외, 무결성 기록(SHA256SUMS)만 추적
+models/*/ckpt/*
+!models/*/ckpt/SHA256SUMS
+
+# 원시 실행 로그 (진행률 출력 위주, 33MB). 핵심 수치는 docs/run-report.md
+*.log
+
+__pycache__/
+*.pyc

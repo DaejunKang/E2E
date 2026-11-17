@@ -1,0 +1,43 @@
+diff -ru -x __pycache__ drivor/navsim/agents/drivoR/drivor_agent.py navsim_v2/navsim/agents/drivoR/drivor_agent.py
+--- drivor/navsim/agents/drivoR/drivor_agent.py	2026-10-14 16:23:34.213762878 +0900
++++ navsim_v2/navsim/agents/drivoR/drivor_agent.py	2026-11-16 17:52:07.124806439 +0900
+@@ -71,8 +71,9 @@
+             scheduler_args: dict = None,
+             batch_size: int = 64,
+             num_gpus: int = 1,
++            trajectory_sampling: Any = None,  # [navsim_v2 port] v2 AbstractAgent requires it (DrivoR issue #13)
+     ):
+-        super().__init__()
++        super().__init__(trajectory_sampling)  # [navsim_v2 port]
+         self._config = config
+         self._lr_args = lr_args
+         self._checkpoint_path = checkpoint_path
+--- drivor/navsim/planning/script/config/common/agent/drivoR.yaml	2026-10-14 16:23:34.219762703 +0900
++++ navsim_v2/navsim/planning/script/config/common/agent/drivoR.yaml	2026-11-17 00:45:33.684068717 +0900
+@@ -1,5 +1,12 @@
+ _target_: navsim.agents.drivoR.drivor_agent.DrivoRAgent
+ 
++# [navsim_v2 port] v2 AbstractAgent needs a real TrajectorySampling (None breaks Trajectory.__post_init__)
++trajectory_sampling:
++    _target_: nuplan.planning.simulation.trajectory.trajectory_sampling.TrajectorySampling
++    _convert_: 'all'
++    time_horizon: 4
++    interval_length: 0.5
++
+ config:
+ 
+   b2d: false # training for navsim
+@@ -118,10 +125,10 @@
+   base_lr: 5e-4
+   base_batch_size: 64
+ scheduler_args: 
+-  num_epochs: ${trainer.params.max_epochs}
++  num_epochs: 10 # [navsim_v2 port] was ${trainer.params.max_epochs}; no trainer section in v2 eval config (training-only)
+   dataset_size: 85000 # for navsim
+ 
+-batch_size: ${dataloader.params.batch_size}
++batch_size: 16 # [navsim_v2 port] was ${dataloader.params.batch_size}; no dataloader section in v2 eval config (training-only)
+ num_gpus: 1 # the batchsize is per gpu --> need to update for steps
+ 
+ progress_bar: true # default progress bar. if false replace by a console print every 100 iterations (better for JZ)
+\ No newline at end of file
